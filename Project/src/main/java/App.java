@@ -1,5 +1,5 @@
 import java.io.IOException;
-import org.jsoup.Jsoup;
+import org.jsoup.*;
 import org.jsoup.nodes.Document;
 
 public class App {
