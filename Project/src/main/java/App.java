@@ -1,6 +1,6 @@
 import java.io.IOException;
-// import org.jsoup.*;
-// import org.jsoup.nodes.*;
+import org.jsoup.*;
+import org.jsoup.nodes.*;
 
 public class App {
     public static void main(String[] args) throws IOException {
@@ -15,7 +15,12 @@ public class App {
         System.out.println(user);
         System.out.println(pw);
 
-        // Document pageToScrape = Jsoup.connect(url).get();
-        // System.out.println(pageToScrape);
+        try{
+            Document pageToScrape = Jsoup.connect(url).get();
+            System.out.println(pageToScrape.outerHtml());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
