@@ -12,30 +12,59 @@ public class App {
         String url = data[0];
         String user = data[1];
         String pw = data[2];
-        
 
-        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
-        WebDriver driver = new FirefoxDriver();
-        driver.get(url);
-        System.out.println(" \n \n\\ ");
+        try {
+            System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+            WebDriver driver = new FirefoxDriver();
+            driver.get(url);
+            System.out.println(" \n \n\\ ");
 
+            login(driver, url, user, pw);
 
-        WebElement UsernameInput = driver.findElement(By.id("username2"));
-        WebElement PasswordInput = driver.findElement(By.id("inputPassword"));
+            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#sortablestart")));
+            String currentPage = driver.getCurrentUrl();
+            driver.get(currentPage);
+            System.out.println(" \n \n\\ ");
+            
+            WebElement tempWidgetConatiner = driver.findElement(By.cssSelector("#accordion"));
+            WebElement VPWidget = tempWidgetConatiner.findElement(By.cssSelector("div:nth-child(3) > div.panel-body > ul > li.ui-state-default.t17-1 > div > div.logobox > div.logoview > a"));
+            String href = VPWidget.getAttribute("href");
 
-        UsernameInput.sendKeys(user);
-        PasswordInput.sendKeys(pw);
+            driver.get(href);
 
-        WebElement LoginButton = driver.findElement(By.id("tlogin"));
-        LoginButton.click();
+            getDaten(driver);
+            
+            // driver.quit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        String currentUrl = driver.getCurrentUrl();
-        new WebDriverWait(driver, 1).until(ExpectedConditions.urlChanges(url));
+    public static void login(WebDriver driver,String url, String user, String pw) {
+            WebElement UsernameInput = driver.findElement(By.id("username2"));
+            WebElement PasswordInput = driver.findElement(By.id("inputPassword"));
 
-        WebElement tempWidgetConatiner = driver.findElement(By.cssSelector("div"));
-        WebElement VPWidget = tempWidgetConatiner.findElement(By.cssSelector("a[href]"));
-        VPWidget.click();
-        // driver.quit();
-        
+            UsernameInput.sendKeys(user);
+            PasswordInput.sendKeys(pw);
+
+            WebElement LoginButton = driver.findElement(By.id("tlogin"));
+            LoginButton.click();
+    }
+
+    public static void getDaten(WebDriver driver) {
+        WebElement DayListCon = driver.findElement(By.cssSelector("#content > div.row.clearfix"));
+        WebElement heuteDiv = DayListCon.findElement(By.className("panel-primary"));
+
+        check(heuteDiv);
+        System.out.println(heuteDiv.getAttribute("id"));
+
+        for (WebElement Day : DayListCon.findElements(By.cssSelector("div.panel-info[style=\"display: none;\"]"))) {
+            System.out.println(Day.getAttribute("id"));
+            check(Day);
+        }
+    }
+
+    public static void check(WebElement heuteDiv) {
+        WebElement table = heuteDiv.findElement(By.className("table.table-hover.table-condensed.table-striped"));
     }
 }
