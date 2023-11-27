@@ -64,7 +64,14 @@ public class App {
         }
     }
 
-    public static void check(WebElement heuteDiv) {
-        WebElement table = heuteDiv.findElement(By.className("table.table-hover.table-condensed.table-striped"));
+    public static void check(WebElement DayElement) {
+        WebElement table = DayElement.findElement(By.cssSelector("table.table-hover.table-condensed.table-striped[data-toggle=\"table\"]"));
+
+        for (WebElement row : table.findElements(By.cssSelector("tr"))) {
+            for (WebElement cell : row.findElements(By.cssSelector("td"))) {
+                System.out.print(cell.getText() + "\t");
+            }
+            System.out.println();
+        }
     }
 }
