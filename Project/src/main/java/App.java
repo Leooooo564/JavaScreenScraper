@@ -51,27 +51,50 @@ public class App {
             LoginButton.click();
     }
 
-    public static void getDaten(WebDriver driver) {
+    public static Liste getDaten(WebDriver driver) {
         WebElement DayListCon = driver.findElement(By.cssSelector("#content > div.row.clearfix"));
         WebElement heuteDiv = DayListCon.findElement(By.className("panel-primary"));
 
-        check(heuteDiv);
+        Liste liste = new Liste();
+
+        liste.add(check(heuteDiv));
         System.out.println(heuteDiv.getAttribute("id"));
 
         for (WebElement Day : DayListCon.findElements(By.cssSelector("div.panel-info[style=\"display: none;\"]"))) {
             System.out.println(Day.getAttribute("id"));
-            check(Day);
+            liste.add(check(Day));
         }
+        return liste;
     }
 
-    public static void check(WebElement DayElement) {
+    public static Tag check(WebElement DayElement) {
         WebElement table = DayElement.findElement(By.cssSelector("table.table-hover.table-condensed.table-striped[data-toggle=\"table\"]"));
+        Tag tag = new Tag();
 
         for (WebElement row : table.findElements(By.cssSelector("tr"))) {
+            Eintrag eintrag = new Eintrag();
+            int i = 0;
+            String[] zellen = new String[13];
             for (WebElement cell : row.findElements(By.cssSelector("td"))) {
-                System.out.print(cell.getText() + "\t");
+                zellen[i] = cell.getText();
+                System.out.print(cell.getText() + "   " + i +"\t");
+                i++;
             }
+            
+            eintrag.setStunden(zellen[1]);
+            eintrag.setKlasse(zellen[2]);
+            eintrag.setVertretung(zellen[3]);
+            eintrag.setLehrkraft(zellen[4]);
+            eintrag.setArt(zellen[5]);
+            eintrag.setFach(zellen[6]);
+            eintrag.setRaum(zellen[7]);
+            eintrag.setRaumAlt(zellen[8]);
+            eintrag.setHinweis(zellen[9]);
+
             System.out.println();
+            tag.add(eintrag);
         }
+
+        return tag;
     }
 }
