@@ -28,17 +28,31 @@ public class Eintrag {
         this.Hinweis = Hinweis;
     }
 
-    public void setStunden(String eingabe){
-        String onlyNumbers = eingabe.replaceAll("\\D", "");
-        if (onlyNumbers.length() == 2) {
-            int von = (int) onlyNumbers.charAt(0);
-            int bis = (int) onlyNumbers.charAt(1);
-            this.setVonStunde(von);
-            this.setBisStunde(bis);
-        }else if (onlyNumbers.length() == 1){
-            vonStunde = Integer.parseInt(onlyNumbers);
-        }else{
+    public void setStunden(String eingabe) {
+        if (eingabe == null) {
             System.out.println("Fehler bei der Stundenangabe");
+        } else {
+            if (eingabe.contains("-")) {
+                String[] parts = eingabe.split("-");
+                String part1 = parts[0].replaceAll("\\D", "");
+                String part2 = parts[1].replaceAll("\\D", "");
+                if (!part1.isEmpty() && !part2.isEmpty()) {
+                    int von = Integer.parseInt(part1);
+                    int bis = Integer.parseInt(part2);
+                    this.setVonStunde(von);
+                    this.setBisStunde(bis);
+                } else {
+                    System.out.println("Fehler bei der Stundenangabe");
+                }
+            } else {
+                String part = eingabe.replaceAll("\\D", "");
+                if (!part.isEmpty()) {
+                    int von = Integer.parseInt(part);
+                    this.setVonStunde(von);
+                } else {
+                    System.out.println("Fehler bei der Stundenangabe");
+                }
+            }
         }
     }
 

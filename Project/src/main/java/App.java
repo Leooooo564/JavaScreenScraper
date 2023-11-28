@@ -74,7 +74,7 @@ public class App {
         for (WebElement row : table.findElements(By.cssSelector("tr"))) {
             Eintrag eintrag = new Eintrag();
             int i = 0;
-            String[] zellen = new String[13];
+            String[] zellen = new String[14];
             for (WebElement cell : row.findElements(By.cssSelector("td"))) {
                 zellen[i] = cell.getText();
                 System.out.print(cell.getText() + "   " + i +"\t");
@@ -91,7 +91,7 @@ public class App {
             eintrag.setRaumAlt(zellen[8]);
             eintrag.setHinweis(zellen[9]);
 
-            System.out.println();
+            System.out.println(eintrag.toString());
             tag.add(eintrag);
         }
 
