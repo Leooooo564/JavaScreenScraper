@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        String[] data = FileReader.scanData("home/pi/data.txt");
+        String[] data = FileReader.scanData("/home/pi/data.txt");
         String url = data[0];
         String user = data[1];
         String pw = data[2];
