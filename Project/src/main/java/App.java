@@ -17,7 +17,7 @@ public class App {
         String pw = data[2];
 
         try {
-            System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", "../geckodriver.exe");
             FirefoxOptions options = new FirefoxOptions();
             // options.setHeadless(true);
             WebDriver driver = new FirefoxDriver();
