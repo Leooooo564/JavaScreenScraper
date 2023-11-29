@@ -1,4 +1,5 @@
 import java.io.IOException;
+// import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,14 +18,14 @@ public class App {
         try {
             System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
             FirefoxOptions options = new FirefoxOptions();
-            options.setHeadless(true);
-            WebDriver driver = new FirefoxDriver(options);
+            // options.setHeadless(true);
+            WebDriver driver = new FirefoxDriver();
             driver.get(url);
             System.out.println(" \n \n\\ ");
 
             login(driver, url, user, pw);
 
-            new WebDriverWait(driver, 10)
+            new WebDriverWait(driver, (long) 10)
                     .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#sortablestart")));
             String currentPage = driver.getCurrentUrl();
             driver.get(currentPage);
