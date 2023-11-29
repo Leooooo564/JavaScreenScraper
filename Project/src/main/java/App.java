@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.Duration;
+
 // import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +27,7 @@ public class App {
 
             login(driver, url, user, pw);
 
-            new WebDriverWait(driver, (long) 10)
+            new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#sortablestart")));
             String currentPage = driver.getCurrentUrl();
             driver.get(currentPage);
