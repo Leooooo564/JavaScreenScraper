@@ -3,6 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,40 +16,44 @@ public class App {
 
         try {
             System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
-            WebDriver driver = new FirefoxDriver();
+            FirefoxOptions options = new FirefoxOptions();
+            options.setHeadless(true);
+            WebDriver driver = new FirefoxDriver(options);
             driver.get(url);
             System.out.println(" \n \n\\ ");
 
             login(driver, url, user, pw);
 
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#sortablestart")));
+            new WebDriverWait(driver, 10)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#sortablestart")));
             String currentPage = driver.getCurrentUrl();
             driver.get(currentPage);
             System.out.println(" \n \n\\ ");
-            
+
             WebElement tempWidgetConatiner = driver.findElement(By.cssSelector("#accordion"));
-            WebElement VPWidget = tempWidgetConatiner.findElement(By.cssSelector("div:nth-child(3) > div.panel-body > ul > li.ui-state-default.t17-1 > div > div.logobox > div.logoview > a"));
+            WebElement VPWidget = tempWidgetConatiner.findElement(By.cssSelector(
+                    "div:nth-child(3) > div.panel-body > ul > li.ui-state-default.t17-1 > div > div.logobox > div.logoview > a"));
             String href = VPWidget.getAttribute("href");
 
             driver.get(href);
 
             getDaten(driver);
-            
-            // driver.quit();
+
+            driver.quit();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void login(WebDriver driver,String url, String user, String pw) {
-            WebElement UsernameInput = driver.findElement(By.id("username2"));
-            WebElement PasswordInput = driver.findElement(By.id("inputPassword"));
+    public static void login(WebDriver driver, String url, String user, String pw) {
+        WebElement UsernameInput = driver.findElement(By.id("username2"));
+        WebElement PasswordInput = driver.findElement(By.id("inputPassword"));
 
-            UsernameInput.sendKeys(user);
-            PasswordInput.sendKeys(pw);
+        UsernameInput.sendKeys(user);
+        PasswordInput.sendKeys(pw);
 
-            WebElement LoginButton = driver.findElement(By.id("tlogin"));
-            LoginButton.click();
+        WebElement LoginButton = driver.findElement(By.id("tlogin"));
+        LoginButton.click();
     }
 
     public static Liste getDaten(WebDriver driver) {
@@ -68,7 +73,8 @@ public class App {
     }
 
     public static Tag check(WebElement DayElement) {
-        WebElement table = DayElement.findElement(By.cssSelector("table.table-hover.table-condensed.table-striped[data-toggle=\"table\"]"));
+        WebElement table = DayElement
+                .findElement(By.cssSelector("table.table-hover.table-condensed.table-striped[data-toggle=\"table\"]"));
         Tag tag = new Tag();
 
         for (WebElement row : table.findElements(By.cssSelector("tr"))) {
@@ -77,10 +83,10 @@ public class App {
             String[] zellen = new String[14];
             for (WebElement cell : row.findElements(By.cssSelector("td"))) {
                 zellen[i] = cell.getText();
-                System.out.print(cell.getText() + "   " + i +"\t");
+                System.out.print(cell.getText() + "   " + i + "\t");
                 i++;
             }
-            
+
             eintrag.setStunden(zellen[1]);
             eintrag.setKlasse(zellen[2]);
             eintrag.setVertretung(zellen[3]);
