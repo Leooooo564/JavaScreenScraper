@@ -1,3 +1,4 @@
+package classes;
 public class Tag {
     private Eintrag TagWurzel;
     private Tag NF;

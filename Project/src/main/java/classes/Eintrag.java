@@ -1,3 +1,4 @@
+package classes;
 public class Eintrag {
     private Eintrag NF;
     private int vonStunde;
