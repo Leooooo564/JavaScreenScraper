@@ -1,16 +1,16 @@
-import java.io.IOException;
-import java.time.Duration;
-import java.time.Duration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+// import java.io.IOException;
+// import java.time.Duration;
+// import java.time.Duration;
+// import org.openqa.selenium.By;
+// import org.openqa.selenium.WebDriver;
+// import org.openqa.selenium.WebElement;
+// import org.openqa.selenium.firefox.FirefoxDriver;
+// import org.openqa.selenium.firefox.FirefoxOptions;
+// import org.openqa.selenium.support.ui.ExpectedConditions;
+// import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         System.out.println("Hello, World!");
     //     String[] data = FileReader.scanData("/home/pi/data.txt");
     //     String url = data[0];
